@@ -67,15 +67,19 @@ def queryReqMAL(name):
       url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset=0'.format(name)
       response = requests.get(url)
       data_json = response.json()
-      url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset=300'.format(name)
-      response = requests.get(url)
-      data_json = data_json + response.json()
-      url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset=600'.format(name)
-      response = requests.get(url)
-      data_json = data_json + response.json()
     except:
       messagebox.showerror("Error!","No user found! Check spelling!")
       return
+    offset = 300
+    while True:
+      try:
+        url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset={}'.format(name,offset)
+        response = requests.get(url)
+        data_json += response.json()
+        offset += 300
+        if offset == 1500: break
+      except:
+        break
     root = ET.Element("myanimelist")
     for anime in data_json:
       if int(anime["status"])==6:
