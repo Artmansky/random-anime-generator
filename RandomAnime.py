@@ -89,9 +89,9 @@ def queryReqMAL(name):
       try:
         url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset={}'.format(name,offset)
         response = requests.get(url)
+        if len(response.text) < 4: break
         data_json += response.json()
         offset += 300
-        if offset == 1500: break
       except:
         break
     #Response is handled by Element Tree where it finds Plan to Watch animes and puts their title with urls in the tree
