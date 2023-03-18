@@ -76,24 +76,20 @@ def queryReqAL(name):
 def queryReqMAL(name):
   if name:
     #Tries getting response from MAL site (it's json response). If not shows error that user isn't in MAL's base
-    try:
-      url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset=0'.format(name)
-      response = requests.get(url)
-      data_json = response.json()
-    except:
+    url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset=0'.format(name)
+    response = requests.get(url)
+    if response.text == '{"errors":[{"message":"invalid request"}]}':
       messagebox.showerror("Error!","No user found! Check spelling!")
       return
+    data_json = response.json()
     #If first try went smooth offset increments to the high point where it's nearly impossible for users to have such big lists. When response returns error or hits max offset loop breaks.
     offset = 300
     while True:
-      try:
-        url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset={}'.format(name,offset)
-        response = requests.get(url)
-        if len(response.text) < 4: break
-        data_json += response.json()
-        offset += 300
-      except:
-        break
+      url = 'https://myanimelist.net/animelist/{}/load.json?status=7&offset={}'.format(name,offset)
+      response = requests.get(url)
+      if len(response.text) < 4: break
+      data_json += response.json()
+      offset += 300
     #Response is handled by Element Tree where it finds Plan to Watch animes and puts their title with urls in the tree
     root = ET.Element("myanimelist")
     for anime in data_json:
