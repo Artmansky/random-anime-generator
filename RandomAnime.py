@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 import requests as REQ
 import webbrowser as WEB
 import tkinter as TK
+from tkinter import messagebox
 
 #Random library to choose random title
 def randomint(min,max): return RAND.randint(min,max)
@@ -27,7 +28,7 @@ def grabFromFile(filename):
     urls.append(anime.find('my_url').text)
   #Random title and it's url are choosen and put on the screen for the User
   rand = randomint(0,len(titleArray)-1)
-  msgBox = TK.messagebox.askquestion('Result','Your next anime is: ' + titleArray[rand] + ". Would you like to open anime's site?")
+  msgBox = messagebox.askquestion('Result','Your next anime is: ' + titleArray[rand] + ". Would you like to open anime's site?")
   if(msgBox) == 'yes': WEB.open(urls[rand])
 
 #Request to AniList api      
@@ -101,7 +102,7 @@ def queryReqMAL(name):
     save = ET.ElementTree(root)
     save.write("listMAL.xml")
     grabFromFile("listMAL.xml")
-  if not name: TK.messagebox.showerror("Name not given!","Input field is empty!")
+  if not name: messagebox.showerror("Name not given!","Input field is empty!")
 
 #Tkinter window to communicate with user (yes everyone loves clickable interfaces). It has fixed window size.
 def main():
