@@ -26,5 +26,5 @@ Now everything should work as expected.
 
 #### Any improvements or features coming soon?
 
-I play to rewrite script using C++ or C# in near future. But I don't think about any improvements as of now.
+I plan to rewrite script using C++ or C# in near future. But I don't think about any improvements as of now.
 
