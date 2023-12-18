@@ -18,8 +18,7 @@ Short python script that downloads whole "Plan to Watch" list from MAL or AL, pu
 Download project from github repository and install libraries below:
 
 ```bash
-  pip install requests
-  pip install tk
+  pip install -r requirements.txt
 ```
 Now everything should work as expected.
 ## FAQ
